@@ -49,10 +49,17 @@ namespace AccessibilityInsights.SharedUx.Controls.CustomControls
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (PropertyListViewItemModel vm in SelectedItems)
+            if (SelectedItems.Count == 1)
             {
-                var line = $"{vm.Name}\t{vm.Value ?? Properties.Resources.PropertyDoesNotExist}";
-                sb.AppendLine(line);
+                sb.Append((SelectedItems[0] as PropertyListViewItemModel).Value);
+            }
+            else
+            {
+                foreach (PropertyListViewItemModel vm in SelectedItems)
+                {
+                    var line = $"{vm.Name}\t{vm.Value ?? Properties.Resources.PropertyDoesNotExist}";
+                    sb.AppendLine(line);
+                }
             }
 
             sb.CopyStringToClipboard();
